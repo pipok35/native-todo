@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, Button, TextInput, View, Alert } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { Button, TextInput, View, Alert } from 'react-native'
+import styled from 'styled-components'
 import { addTodo, fetchTodos } from '../store/todoSlice'
 
 export default function AddTodoScreen({ navigation }) {
@@ -36,46 +37,46 @@ export default function AddTodoScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.form}>
-        <TextInput
-          style={styles.input}
+    <Wrapper>
+      <Form>
+        <Input
           value={inputValue}
           onChangeText={text => setInputvalue(text)}
           placeholder='Введите задачу'
           autoCorrect={false}
         />
-      </View>
-      <View style={styles.buttons}>
-        <Button title='Добавить' onPress={pressHandler} color='#f4511e'/>
+      </Form>
+      <Buttons>
+        <Button title='Добавить' onPress={pressHandler} color='#f4511e' />
         <Button title='Все заметки' color='#f4511e' onPress={() => navigation.navigate('allTodos')} />
-      </View>
-    </View>
+      </Buttons>
+    </Wrapper>
   )
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  form: {
-    width: '80%',
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
+const Wrapper = styled(View)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`
 
-  input: {
-    width: '100%',
-    fontSize: 18,
-    borderBottomWidth: 2,
-    borderBottomColor: 'black',
-    marginBottom: 15
-  },
-  buttons: {
-    width: '70%',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
-});
+const Form = styled(View)`
+  width: 80%;
+  margin-top: 20px;
+  padding: 0px 20px;
+`
+
+const Input = styled(TextInput)`
+  width: 100%;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 15px;
+`
+
+const Buttons = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+`
