@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import AddTodoScreen from '../screens/AddTodoScreen'
 import AllTodosScreen from '../screens/AllTodosScreen'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 export default function appNavigation() {
   return (

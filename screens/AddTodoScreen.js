@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { addTodo, fetchTodos } from '../store/todoSlice'
 
 export default function AddTodoScreen({ navigation }) {
-
   const [inputValue, setInputvalue] = React.useState('')
   const dispatch = useDispatch()
 
@@ -17,20 +16,17 @@ export default function AddTodoScreen({ navigation }) {
     if (inputValue) {
       dispatch(addTodo({ inputValue }))
       setInputvalue('')
-      Alert.alert(
-        "Успешно",
-        "Заметка добавлена",
-        [
-          {
-            text: "Перейти к списку", onPress: () => {
-              navigation.navigate('allTodos')
-            }
+      Alert.alert('Успешно', 'Заметка добавлена', [
+        {
+          text: 'Перейти к списку',
+          onPress: () => {
+            navigation.navigate('allTodos')
           },
-          {
-            text: "Закрыть"
-          }
-        ]
-      );
+        },
+        {
+          text: 'Закрыть',
+        },
+      ])
     } else {
       Alert.alert('Поле ввода не может быть пустым')
     }
@@ -41,14 +37,18 @@ export default function AddTodoScreen({ navigation }) {
       <Form>
         <Input
           value={inputValue}
-          onChangeText={text => setInputvalue(text)}
+          onChangeText={(text) => setInputvalue(text)}
           placeholder='Введите задачу'
           autoCorrect={false}
         />
       </Form>
       <Buttons>
         <Button title='Добавить' onPress={pressHandler} color='#f4511e' />
-        <Button title='Все заметки' color='#f4511e' onPress={() => navigation.navigate('allTodos')} />
+        <Button
+          title='Все заметки'
+          color='#f4511e'
+          onPress={() => navigation.navigate('allTodos')}
+        />
       </Buttons>
     </Wrapper>
   )

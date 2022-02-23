@@ -10,7 +10,7 @@ export default function TodoItem({ id, title }) {
     <TouchableContainer onPress={() => dispatch(removeTodo({ id }))}>
       <TextTodo>{title}</TextTodo>
     </TouchableContainer>
-  );
+  )
 }
 
 const TouchableContainer = styled(TouchableOpacity)`
