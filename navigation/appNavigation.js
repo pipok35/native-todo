@@ -14,7 +14,7 @@ export default function appNavigation() {
           name='addTodo'
           component={AddTodoScreen}
           options={{
-            title: 'Добавить',
+            title: 'Добавить заметку',
             headerStyle: {
               backgroundColor: '#f4511e',
             },
