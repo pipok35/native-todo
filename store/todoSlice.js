@@ -4,9 +4,7 @@ import axios from 'axios'
 export const fetchTodos = createAsyncThunk(
   'todos/fetchTodos',
   async function (_, { dispatch }) {
-    const response = await axios.get(
-      'http://10.0.2.2:3001/todos'
-    )
+    const response = await axios.get('http://10.0.2.2:3001/todos')
     dispatch(setTodos(response.data))
   }
 )
