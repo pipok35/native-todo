@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, TextInput, View, Alert } from 'react-native'
 import styled from 'styled-components'
-import { addTodo, fetchTodos } from '../store/todoSlice'
+import shortid from 'shortid'
+import { fetchTodos, addFetchTodo } from '../store/todoSlice'
 
 export default function AddTodoScreen({ navigation }) {
   const [inputValue, setInputvalue] = React.useState('')
@@ -10,11 +11,16 @@ export default function AddTodoScreen({ navigation }) {
 
   useEffect(() => {
     dispatch(fetchTodos())
-  }, [dispatch])
+  }, [])
 
   const pressHandler = () => {
+    const todoItem = {
+      id: shortid.generate(),
+      title: inputValue,
+    }
+
     if (inputValue) {
-      dispatch(addTodo({ inputValue }))
+      dispatch(addFetchTodo(todoItem))
       setInputvalue('')
       Alert.alert('Успешно', 'Заметка добавлена', [
         {
@@ -71,7 +77,7 @@ const Input = styled(TextInput)`
   font-size: 18px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 5px;
+  padding: 5px 5px 5px 15px;
   margin-bottom: 15px;
 `
 

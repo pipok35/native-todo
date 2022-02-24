@@ -1,13 +1,30 @@
-import { TouchableOpacity, Text } from 'react-native'
+import { TouchableOpacity, Text, Alert } from 'react-native'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { removeTodo } from '../store/todoSlice'
+import { deleteFetchTodo } from '../store/todoSlice'
 
 export default function TodoItem({ id, title }) {
   const dispatch = useDispatch()
 
+  const removeHandler = () => {
+    Alert.alert(
+      'Удалить',
+      'Вы уверены, что хотите удалить заметку?',
+      [
+        { text: 'Отмена' },
+        {
+          text: 'Да',
+          onPress: () => {
+            dispatch(deleteFetchTodo(id))
+          },
+        },
+      ],
+      { cancelable: false }
+    )
+  }
+
   return (
-    <TouchableContainer onPress={() => dispatch(removeTodo({ id }))}>
+    <TouchableContainer onPress={removeHandler}>
       <TextTodo>{title}</TextTodo>
     </TouchableContainer>
   )

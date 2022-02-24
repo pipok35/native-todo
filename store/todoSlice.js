@@ -3,11 +3,27 @@ import axios from 'axios'
 
 export const fetchTodos = createAsyncThunk(
   'todos/fetchTodos',
-  async function () {
+  async function (_, { dispatch }) {
     const response = await axios.get(
-      'https://jsonplaceholder.typicode.com/todos?_limit=5'
+      'http://10.0.2.2:3001/todos'
     )
-    return response.data
+    dispatch(setTodos(response.data))
+  }
+)
+
+export const deleteFetchTodo = createAsyncThunk(
+  'todos/deleteTodo',
+  async function (id, { dispatch }) {
+    await axios.delete(`http://10.0.2.2:3001/todos/${id}`)
+    dispatch(removeTodo(id))
+  }
+)
+
+export const addFetchTodo = createAsyncThunk(
+  'todos/deleteTodo',
+  async function (obj, { dispatch }) {
+    await axios.post(`http://10.0.2.2:3001/todos`, obj)
+    dispatch(addTodo(obj))
   }
 )
 
@@ -15,32 +31,29 @@ const todoSlice = createSlice({
   name: 'todos',
   initialState: {
     todos: [],
-    status: null,
-    error: null,
+    status: '',
   },
   reducers: {
+    setTodos(state, action) {
+      state.todos = action.payload
+    },
     addTodo(state, action) {
-      state.todos.push({
-        id: Date.now().toString(),
-        title: action.payload.inputValue,
-      })
+      state.todos.push(action.payload)
     },
     removeTodo(state, action) {
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload.id)
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload)
     },
   },
   extraReducers: {
     [fetchTodos.pending]: (state) => {
-      ;(state.status = 'loading'), (state.error = null)
+      state.status = 'loading'
     },
-    [fetchTodos.fulfilled]: (state, action) => {
-      state.status = 'resolved'
-      state.todos = action.payload
+    [fetchTodos.fulfilled]: (state) => {
+      state.status = 'loading complete'
     },
-    [fetchTodos.rejected]: (state, action) => {},
   },
 })
 
-export const { addTodo, removeTodo } = todoSlice.actions
+export const { addTodo, removeTodo, setTodos } = todoSlice.actions
 
 export default todoSlice.reducer
